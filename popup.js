@@ -42,11 +42,15 @@ let copyIdButton = document.getElementById("copyId");
 // };
 
 fillLighthouseFamilyButton.onclick = () => {
+  const oldText = fillLighthouseFamilyButton.innerText
+  fillLighthouseFamilyButton.innerText = 'Filling...'
   console.log('fill family button')
   chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {command: "fillFamily"}, function (response) {
       console.log(response)
+      fillLighthouseFamilyButton.innerText = oldText
       // console.log(response.result);
     });
   });
+  // fillLighthouseFamilyButton.innerText = oldText
 }
