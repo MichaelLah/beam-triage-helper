@@ -1,6 +1,7 @@
 let changeColor = document.getElementById("changeColor");
 let adminButton = document.getElementById("admin");
 const fillLighthouseFamilyButton = document.getElementById('fillLighthouseFamily');
+const fillSingleDependentButton =  document.getElementById('fillSingleDependent')
 let copyIdButton = document.getElementById("copyId");
 
 // adminButton.onclick = () => {
@@ -49,8 +50,18 @@ fillLighthouseFamilyButton.onclick = () => {
     chrome.tabs.sendMessage(tabs[0].id, {command: "fillFamily"}, function (response) {
       console.log(response)
       fillLighthouseFamilyButton.innerText = oldText
-      // console.log(response.result);
     });
   });
-  // fillLighthouseFamilyButton.innerText = oldText
+}
+
+fillSingleDependentButton.onclick = () => {
+  const oldText = fillSingleDependentButton.innerText
+  fillSingleDependentButton.innerText = 'Filling...'
+  console.log('fill single dep button')
+  chrome.tabs.query({active: true, currentWindow: true}, function (tabs) {
+    chrome.tabs.sendMessage(tabs[0].id, {command: "singleDependent"}, function (response) {
+      console.log(response)
+      fillSingleDependentButton.innerText = oldText
+    });
+  });
 }

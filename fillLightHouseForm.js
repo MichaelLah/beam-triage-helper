@@ -4,6 +4,45 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
   if(request.command == 'init'){
 
   }
+
+  if(request.command = 'singleDependent'){
+    /*
+      Basic info
+     */
+
+    const firstNameInput = document.querySelector('input[name="insured.firstName"]')
+    const randomFirstNameNum = Math.floor(Math.random() * 1000) + 1;
+    setFormValue(firstNameInput, `FakeFirstName_${randomFirstNameNum}`)
+
+    const lastNameInput = document.querySelector('input[name="insured.lastName"]')
+    const randomLastNameNum = Math.floor(Math.random() * 1000) + 1;
+    setFormValue(lastNameInput, `FakeLastName_${randomLastNameNum}`)
+
+    const relationshipInput = document.querySelector('input[name="certInsured.namedRole"]')
+    setFormValue(relationshipInput, 'child')
+
+    const genderInput = document.querySelector('input[name="insured.gender"]')
+    setFormValue(genderInput, randomGender())
+
+
+    const dobInput = document.querySelector('input[name="insured.dateOfBirth"]')
+    setFormValue(dobInput, '2010-01-01')
+
+    const ssnInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
+    setFormValue(ssnInput, '999999999')
+
+    const eventInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
+    setFormValue(ssnInput, '999999999')
+
+    /*
+      Life event
+     */
+    document.querySelector(`div[name="${randomEvent()}"]`).click()
+
+    const eventDateInput = document.querySelector('input[name="certInsured.effectiveAt"]')
+    setFormValue(eventDateInput, '2021-03-03')
+
+  }
   if(request.command == 'fillFamily'){
     console.log('fill LH family!')
 
@@ -113,3 +152,8 @@ const randomEvent = () => {
   return EVENTS[Math.floor(Math.random()*EVENTS.length)];
 }
 const EVENTS = ['lost-coverage', 'got-married', 'had-baby', 'adopted-child', 'got-divorced', 'death']
+
+const randomGender = () =>{
+  return PRONOUNS[Math.floor(Math.random()*PRONOUNS.length)];
+}
+const PRONOUNS = ['F', 'M', 'U']
