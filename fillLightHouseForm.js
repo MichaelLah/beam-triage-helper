@@ -6,17 +6,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
   }
   if(request.command == 'fillFamily'){
     console.log('fill LH family!')
-    document.querySelector('div[name="had-baby"]').click()
 
-    // TODO make this work
+    /*
+      Qualifying Event
+     */
+
+    document.querySelector(`div[name="${randomEvent()}"]`).click()
+
     const eventDateInput = document.querySelector('input[name="employee.eventDate"]')
-    eventDateInput.click()
-    eventDateInput.value = '2021-03-03'
-    // eventDateInput.dispatchEvent(new Event("focus", { bubbles: true }));
-    eventDateInput.dispatchEvent(new Event("change", { bubbles: true }));
-    eventDateInput.dispatchEvent(new Event("blur", { bubbles: true }));
+    setFormValue(eventDateInput, '2021-03-03')
 
-
+    /*
+      basic info
+     */
     const firstNameInput = document.querySelector('input[name="employee.firstName"]')
 
     const randomFirstNameNum = Math.floor(Math.random() * 1000) + 1;
@@ -49,14 +51,19 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     setFormValue(dohInput, `2021-${lastMonthString}-01`)
 
 
+    /*
+      Contact info
+     */
     const emailInput = document.querySelector('input[name="employee.email"]')
     const randomEmailNumber = Math.floor(Math.random() * 1000000) + 1;
     setFormValue(emailInput, `fake-email-${randomEmailNumber}@example.com`)
 
-
     const phoneInput = document.querySelector('input[name="employee.userAddress.phone"]')
     setFormValue(phoneInput, '5550000000')
 
+    /*
+      Address info
+     */
     const line1Input = document.querySelector('input[name="employee.userAddress.address"]')
     setFormValue(line1Input, '123 Fake street')
 
@@ -69,12 +76,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     const zipcodeInput = document.querySelector('input[name="employee.userAddress.zip"]')
     setFormValue(zipcodeInput, '43215')
 
-    // const dentalLabel = document.querySelectorAll('label.beam-radio-select').find(element => {
-    //   element.text().find('dental')
-    // })
-
     const radioSelects = Array.from(document.querySelectorAll('label.beam-radio-select'))
 
+
+    /*
+      Plan selection
+     */
     const dentalLabel = radioSelects.find(element => {
       console.log(element.textContent)
       return element.textContent.includes('Dental - ')
@@ -86,13 +93,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
       return element.textContent.includes('Vision - ')
     })
     visionLabel.click()
-    // for (const element of document.querySelectorAll('label.beam-radio-select')) {
-    //   if (element.textContent.includes("Dental - ")) {
-    //     console.log(element.textContent)
-    //   }
-    // }
 
-
+    /*
+      Clean up
+     */
     sendResponse({result: "success"});
   }
 
@@ -104,3 +108,8 @@ const setFormValue = (input, value) => {
   input.dispatchEvent(new Event("change", { bubbles: true }));
   input.dispatchEvent(new Event("blur", { bubbles: true }));
 }
+
+const randomEvent = () => {
+  return EVENTS[Math.floor(Math.random()*EVENTS.length)];
+}
+const EVENTS = ['lost-coverage', 'got-married', 'had-baby', 'adopted-child', 'got-divorced', 'death']
