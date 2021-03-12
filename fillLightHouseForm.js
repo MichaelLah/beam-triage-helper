@@ -18,25 +18,35 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
 
 
     const firstNameInput = document.querySelector('input[name="employee.firstName"]')
-    setFormValue(firstNameInput, 'FirstName')
 
+    const randomFirstNameNum = Math.floor(Math.random() * 1000) + 1;
+    setFormValue(firstNameInput, `FakeFirstName_${randomFirstNameNum}`)
+
+    const randomLastNameNum = Math.floor(Math.random() * 1000) + 1;
     const lastNameInput = document.querySelector('input[name="employee.lastName"]')
-    setFormValue(lastNameInput, 'LastName')
+    setFormValue(lastNameInput, `FakeLastName_${randomLastNameNum}`)
 
     const jobTitleInput = document.querySelector('input[name="employee.jobTitle"]')
     setFormValue(jobTitleInput, 'Assistant to the regional manager')
 
     const genderInput = document.querySelector('input[name="employee.gender"]')
     setFormValue(genderInput, 'F')
-    //
+
+    const randomDOBDayNumber = Math.floor(Math.random() * (27 - 1 + 1)) + 1;
+    const randomDOBMonthNumber = Math.floor(Math.random() * (12 - 1 + 1)) + 1;
+
+    const DOBDayString = String(randomDOBDayNumber).padStart(2,'0')
+    const DOBMonthString = String(randomDOBMonthNumber).padStart(2,'0')
     const birthdayInput = document.querySelector('input[name="employee.dob"]')
-    setFormValue(birthdayInput, '2000-05-05')
-    //
+    setFormValue(birthdayInput, `2000-${DOBMonthString}-${DOBDayString}`)
+
     const ssnInput = document.querySelector('input[name="employee.obfuscatedSsn"]')
     setFormValue(ssnInput, '999999999')
-    //
+
+    const lastMonth = new Date().getMonth()
+    const lastMonthString = String(lastMonth).padStart(2,'0')
     const dohInput = document.querySelector('input[name="employee.dateOfHire"]')
-    setFormValue(dohInput, '2021-03-03')
+    setFormValue(dohInput, `2021-${lastMonthString}-01`)
 
 
     const emailInput = document.querySelector('input[name="employee.email"]')
