@@ -17,6 +17,9 @@ chrome.runtime.onInstalled.addListener(function () {
           }),
           new chrome.declarativeContent.PageStateMatcher({
             pageUrl: {hostEquals: "lighthouse.beam.localhost"}
+          }),
+          new chrome.declarativeContent.PageStateMatcher({
+            pageUrl: {urlContains: "services.beam.tools"}
           })
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()]
