@@ -5,7 +5,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
 
   }
 
-  if(request.command = 'singleDependent'){
+  if(request.command == 'singleDependent'){
     /*
       Basic info
      */
@@ -29,10 +29,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     setFormValue(dobInput, '2010-01-01')
 
     const ssnInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
-    setFormValue(ssnInput, '999999999')
+    const ssn = Math.floor(Math.random() * 1000000000)
+    setFormValue(ssnInput, ssn)
 
-    const eventInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
-    setFormValue(ssnInput, '999999999')
+    // const eventInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
+    // setFormValue(ssnInput, '999999999')
 
     /*
       Life event
@@ -82,7 +83,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     setFormValue(birthdayInput, `2000-${DOBMonthString}-${DOBDayString}`)
 
     const ssnInput = document.querySelector('input[name="employee.obfuscatedSsn"]')
-    setFormValue(ssnInput, '999999999')
+    const ssn = Math.floor(Math.random() * 1000000000)
+    setFormValue(ssnInput, ssn)
 
     const lastMonth = new Date().getMonth()
     const lastMonthString = String(lastMonth).padStart(2,'0')
