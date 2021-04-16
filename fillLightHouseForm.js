@@ -40,8 +40,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
      */
     document.querySelector(`div[name="${randomEvent()}"]`).click()
 
-    const eventDateInput = document.querySelector('input[name="certInsured.effectiveAt"]')
-    setFormValue(eventDateInput, '2021-03-03')
+    const eventDateInput = document.querySelector('input[name="certInsured.eventDate"]')
+    setFormValue(eventDateInput, '2021-04-03')
+
+    const effectiveAtInput = document.querySelector('input[name="certInsured.effectiveAt"]')
+    setFormValue(effectiveAtInput, '2021-04-04')
 
   }
   if(request.command == 'fillFamily'){
@@ -54,7 +57,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     document.querySelector(`div[name="${randomEvent()}"]`).click()
 
     const eventDateInput = document.querySelector('input[name="employee.eventDate"]')
-    setFormValue(eventDateInput, '2021-03-03')
+    setFormValue(eventDateInput, '2021-04-03')
+
+    const effectiveDateInput = document.querySelector('input[name="employee.effectiveDate"]')
+    setFormValue(effectiveDateInput, '2021-04-05')
 
     /*
       basic info
@@ -90,7 +96,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     const lastMonthString = String(lastMonth).padStart(2,'0')
     const dohInput = document.querySelector('input[name="employee.dateOfHire"]')
     setFormValue(dohInput, `2021-${lastMonthString}-01`)
-
 
     /*
       Contact info
