@@ -29,8 +29,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     setFormValue(dobInput, '2010-01-01')
 
     const ssnInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
-    const ssn = Math.floor(Math.random() * 1000000000)
-    setFormValue(ssnInput, ssn)
+    // const ssn = Math.floor(Math.random() * 1000000000)
+    setFormValue(ssnInput, generateSsn())
 
     // const eventInput = document.querySelector('input[name="insured.obfuscatedSsn"]')
     // setFormValue(ssnInput, '999999999')
@@ -83,8 +83,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     setFormValue(birthdayInput, `2000-${DOBMonthString}-${DOBDayString}`)
 
     const ssnInput = document.querySelector('input[name="employee.obfuscatedSsn"]')
-    const ssn = Math.floor(Math.random() * 1000000000)
-    setFormValue(ssnInput, ssn)
+    // const ssn = Math.floor(Math.random() * 1000000000)
+    setFormValue(ssnInput, generateSsn())
 
     const lastMonth = new Date().getMonth()
     const lastMonthString = String(lastMonth).padStart(2,'0')
@@ -159,3 +159,8 @@ const randomGender = () =>{
   return PRONOUNS[Math.floor(Math.random()*PRONOUNS.length)];
 }
 const PRONOUNS = ['F', 'M', 'U']
+
+const generateSsn = () => {
+  const ssn = Math.floor(Math.random() * 1000000000)
+  return String(ssn).padEnd(9, '0')
+}
