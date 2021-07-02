@@ -128,17 +128,28 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     /*
       Plan selection
      */
-    const dentalLabel = radioSelects.find(element => {
-      console.log(element.textContent)
-      return element.textContent.includes('Dental - ')
-    })
-    dentalLabel.click()
+    if(radioSelects?.length > 0){
+      const dentalLabel = radioSelects.find(element => {
+        console.log(element.textContent)
+        return element.textContent.includes('Dental - ')
+      })
+      if(dentalLabel){
+        dentalLabel.click()
+      }
 
-    const visionLabel = radioSelects.find(element => {
-      console.log(element.textContent)
-      return element.textContent.includes('Vision - ')
-    })
-    visionLabel.click()
+      const visionLabel = radioSelects.find(element => {
+        console.log(element.textContent)
+        return element.textContent.includes('Vision - ')
+      })
+      if(visionLabel){
+        visionLabel.click()
+      }
+    }
+
+
+
+
+
 
     /*
       Clean up
@@ -149,6 +160,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
 });
 
 const setFormValue = (input, value) => {
+  if(!input){
+    return
+  }
   input.click();
   input.value = value
   input.dispatchEvent(new Event("change", { bubbles: true }));
@@ -168,4 +182,13 @@ const PRONOUNS = ['F', 'M', 'U']
 const generateSsn = () => {
   const ssn = Math.floor(Math.random() * 1000000000)
   return String(ssn).padEnd(9, '0')
+}
+
+const recentDate = (daysBack = 30) => {
+  const oneDay=1000*60*60*24
+  const daysInMs = oneDay * daysBack
+  const newDateUnix = new Date() - daysInMs
+  const newDateString = new Date(newDateUnix).toISOString().split('T')[0]
+
+  return newDateString
 }
