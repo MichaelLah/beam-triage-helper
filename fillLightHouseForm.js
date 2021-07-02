@@ -41,10 +41,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     document.querySelector(`div[name="${randomEvent()}"]`).click()
 
     const eventDateInput = document.querySelector('input[name="certInsured.eventDate"]')
-    setFormValue(eventDateInput, '2021-04-03')
+    setFormValue(eventDateInput, recentDate(15))
 
     const effectiveAtInput = document.querySelector('input[name="certInsured.effectiveAt"]')
-    setFormValue(effectiveAtInput, '2021-04-04')
+    setFormValue(effectiveAtInput, recentDate(1))
 
   }
   if(request.command == 'fillFamily'){
@@ -57,10 +57,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse)    
     document.querySelector(`div[name="${randomEvent()}"]`).click()
 
     const eventDateInput = document.querySelector('input[name="employee.eventDate"]')
-    setFormValue(eventDateInput, '2021-04-03')
+    setFormValue(eventDateInput, recentDate(15))
 
     const effectiveDateInput = document.querySelector('input[name="employee.effectiveDate"]')
-    setFormValue(effectiveDateInput, '2021-04-05')
+    setFormValue(effectiveDateInput, recentDate(1))
 
     /*
       basic info
